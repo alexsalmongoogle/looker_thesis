@@ -1,7 +1,6 @@
 view: full_raw_data {
   derived_table: {
-    sql: "
-          SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2008
+    sql: SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2008
           UNION ALL
           SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2009
           UNION ALL
@@ -20,7 +19,7 @@ view: full_raw_data {
           SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2016
           UNION ALL
           SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2017
-      " ;;
+          ;;
   }
 
   dimension: afecprin {
