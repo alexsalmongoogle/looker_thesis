@@ -109,18 +109,16 @@ explore: full_raw_data {
 
 }
 
-explore: raw_data_2008 {}
-explore: raw_data_2009 {}
-explore: raw_data_2010 {}
-explore: raw_data_2011 {}
-explore: raw_data_2012 {}
-explore: raw_data_2013 {}
-explore: raw_data_2014 {}
-explore: raw_data_2015 {}
-explore: raw_data_2016 {}
-explore: raw_data_2017 {}
-
-
+# explore: raw_data_2008 {}
+# explore: raw_data_2009 {}
+# explore: raw_data_2010 {}
+# explore: raw_data_2011 {}
+# explore: raw_data_2012 {}
+# explore: raw_data_2013 {}
+# explore: raw_data_2014 {}
+# explore: raw_data_2015 {}
+# explore: raw_data_2016 {}
+# explore: raw_data_2017 {}
 
 explore: full_time_series {}
 explore: time_series_by_hospital {}
