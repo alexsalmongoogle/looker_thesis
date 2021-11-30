@@ -69,7 +69,7 @@ explore: statistical_month {}
 explore: full_raw_data {
   join: health_establishments {
     sql_on: ${full_raw_data.clues} = ${health_establishments.clues} ;;
-    relationship: many_to_many
+    relationship: many_to_one
   }
 
   join: cveedad {
