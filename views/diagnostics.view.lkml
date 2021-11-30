@@ -22,6 +22,7 @@ view: diagnostics {
   }
 
   dimension: catalog_key {
+    primary_key: yes
     type: string
     sql: ${TABLE}.CATALOG_KEY ;;
   }

@@ -31,6 +31,7 @@ view: health_establishments {
   }
 
   dimension: clues {
+    primary_key: yes
     type: string
     sql: ${TABLE}.CLUES ;;
   }
