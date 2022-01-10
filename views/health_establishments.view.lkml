@@ -21,11 +21,13 @@ view: health_establishments {
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total_attention_level_code {
+    hidden: yes
     type: sum
     sql: ${attention_level_code} ;;
   }
 
   measure: average_attention_level_code {
+    hidden: yes
     type: average
     sql: ${attention_level_code} ;;
   }
@@ -42,6 +44,7 @@ view: health_establishments {
   }
 
   dimension: establishment_type_code {
+    hidden: yes
     type: number
     sql: ${TABLE}.ESTABLISHMENT_TYPE_CODE ;;
   }
@@ -54,6 +57,12 @@ view: health_establishments {
   dimension: institution_code {
     type: string
     sql: ${TABLE}.INSTITUTION_CODE ;;
+  }
+
+  dimension: establishment_location {
+    type: location
+    sql_latitude: ${latitude} ;;
+    sql_longitude: ${longitude} ;;
   }
 
   dimension: latitude {
@@ -92,6 +101,7 @@ view: health_establishments {
   }
 
   dimension: tipology_code {
+    hidden: yes
     type: string
     sql: ${TABLE}.TIPOLOGY_CODE ;;
   }
@@ -102,6 +112,7 @@ view: health_establishments {
   }
 
   dimension: unit_stratum_code {
+    hidden: yes
     type: number
     sql: ${TABLE}.UNIT_STRATUM_CODE ;;
   }
