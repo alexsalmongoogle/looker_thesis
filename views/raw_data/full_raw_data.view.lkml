@@ -1,6 +1,7 @@
 view: full_raw_data {
   derived_table: {
-    sql: SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2008
+    sql: SELECT * FROM
+          (SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2008
           UNION ALL
           SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2009
           UNION ALL
@@ -19,20 +20,33 @@ view: full_raw_data {
           SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2016
           UNION ALL
           SELECT * FROM thematic-mapper-330917.mexico_health_department_data.raw_data_2017
+          )
+          WHERE FECHAEGRE > DATE('2007-12-31')
           ;;
   }
 
   dimension: afecprin {
+    label: "Diagnostics Code"
     type: string
     sql: ${TABLE}.AFECPRIN ;;
+    link: {
+      label: "Diagnostic Details"
+      url: "https://productday.dev.looker.com/dashboards-next/767?Catalog+Key= {{ value }}"
+    }
   }
 
   dimension: clues {
+    label: "Health Establishment Code"
     type: string
     sql: ${TABLE}.CLUES ;;
+    link: {
+      label: "Health Establishment Details"
+      url: "https://productday.dev.looker.com/dashboards-next/765?Clues={{ value }}"
+      }
   }
 
   dimension: cveedad {
+    hidden: yes
     type: number
     sql: ${TABLE}.CVEEDAD ;;
   }
@@ -41,27 +55,30 @@ view: full_raw_data {
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
-  measure: total_cveedad {
-    type: sum
-    sql: ${cveedad} ;;
-  }
-
-  measure: average_cveedad {
-    type: average
-    sql: ${cveedad} ;;
-  }
-
   dimension: derhab {
+    hidden: yes
     type: string
     sql: ${TABLE}.DERHAB ;;
   }
 
   dimension: edad {
     type: number
-    sql: ${TABLE}.EDAD ;;
+    sql:
+      CASE
+        WHEN ${cveedad} = 3 AND ${TABLE}.edad < 113 THEN ${TABLE}.EDAD
+        WHEN ${cveedad} = 3 AND ${TABLE}.edad > 113 THEN floor(${TABLE}.EDAD/365)
+        WHEN ${cveedad} = 2 THEN floor(${TABLE}.edad/12)
+        WHEN ${cveedad} = 1 THEN floor(${TABLE}.edad/365)
+        WHEN ${cveedad} = 0 THEN floor(${TABLE}.edad/8760)
+        WHEN ${cveedad} = 9 AND ${TABLE}.edad < 113 THEN ${TABLE}.edad
+        WHEN ${cveedad} = 9 AND ${TABLE}.edad > 113 THEN floor(${TABLE}.edad/365)
+        WHEN ${TABLE}.edad > 113 THEN floor(${TABLE}.edad/365)
+      END
+        ;;
   }
 
   dimension: enviadoa {
+    hidden:  yes
     type: number
     sql: ${TABLE}.ENVIADOA ;;
   }
@@ -70,6 +87,7 @@ view: full_raw_data {
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
   dimension_group: fechaegre {
+    label: "Admission"
     type: time
     timeframes: [
       raw,
@@ -82,9 +100,11 @@ view: full_raw_data {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.FECHAEGRE ;;
+    drill_fields: [clues, count]
   }
 
   dimension_group: fechaingre {
+    label: "Discharge"
     type: time
     timeframes: [
       raw,
@@ -100,42 +120,57 @@ view: full_raw_data {
   }
 
   dimension: horainiate {
+    label: "Admission Hour"
     type: number
     sql: ${TABLE}.HORAINIATE ;;
   }
 
   dimension: horaterate {
+    label: "Discharge Hour"
     type: number
     sql: ${TABLE}.HORATERATE ;;
   }
 
   dimension: mes_estad {
+    hidden: yes
     type: number
     sql: ${TABLE}.MES_ESTAD ;;
   }
 
   dimension: mininiate {
+    label: "Admission Minute"
     type: number
     sql: ${TABLE}.MININIATE ;;
   }
 
   dimension: minterate {
+    label: "Discharge Minute"
     type: number
     sql: ${TABLE}.MINTERATE ;;
   }
 
   dimension: sexo {
+    hidden: yes
     type: number
     sql: ${TABLE}.SEXO ;;
   }
 
   dimension: tipocama {
+    hidden: yes
     type: number
     sql: ${TABLE}.TIPOCAMA ;;
   }
 
   measure: count {
     type: count
-    drill_fields: []
+    drill_fields: [clues, afecprin, fechaingre_date,fechaegre_date, sent_to.sent_to]
   }
+
+  measure: average_edad {
+    label: "Age average"
+    type: average
+    sql: ${edad} ;;
+  }
+
+
 }

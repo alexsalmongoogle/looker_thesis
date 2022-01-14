@@ -78,7 +78,7 @@ explore: full_raw_data {
   }
 
   join: sex {
-    sql_on: ${full_raw_data.sexo} = ${sex.id}} ;;
+    sql_on: ${full_raw_data.sexo} = ${sex.id} ;;
     relationship: many_to_one
   }
 

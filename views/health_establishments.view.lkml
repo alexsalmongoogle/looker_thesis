@@ -92,6 +92,7 @@ view: health_establishments {
 
   dimension: postal_code {
     type: number
+    value_format: "*0000#"
     sql: ${TABLE}.POSTAL_CODE ;;
   }
 
