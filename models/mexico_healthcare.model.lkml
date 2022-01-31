@@ -1,8 +1,6 @@
 # Define the database connection to be used for this model.
 connection: "lookerdata_publicdata_standard_sql"
 
-label: "Test MExico"
-
 # include all the views
 include: "/views/**/*.view"
 
