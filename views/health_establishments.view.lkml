@@ -110,6 +110,11 @@ view: health_establishments {
   dimension: unit_name {
     type: string
     sql: ${TABLE}.UNIT_NAME ;;
+    drill_fields: [count]
+    link: {
+      label: "Health Establishment Details"
+      url: "https://productday.dev.looker.com/dashboards-next/765?Unit+Name={{ value }}"
+    }
   }
 
   dimension: unit_stratum_code {
@@ -120,6 +125,6 @@ view: health_establishments {
 
   measure: count {
     type: count
-    drill_fields: [unit_name]
+    drill_fields: [unit_name,state]
   }
 }

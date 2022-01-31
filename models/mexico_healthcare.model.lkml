@@ -1,6 +1,8 @@
 # Define the database connection to be used for this model.
 connection: "lookerdata_publicdata_standard_sql"
 
+label: "Test MExico"
+
 # include all the views
 include: "/views/**/*.view"
 
@@ -9,7 +11,7 @@ include: "/views/**/*.view"
 
 datagroup: mexico_healthcare_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  max_cache_age: "24 hour"
 }
 
 persist_with: mexico_healthcare_default_datagroup

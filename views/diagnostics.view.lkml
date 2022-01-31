@@ -83,8 +83,13 @@ view: diagnostics {
   }
 
   dimension: nombre {
+    label: "Name"
     type: string
     sql: ${TABLE}.NOMBRE ;;
+    link: {
+      label: "Diagnostic Details"
+      url: "https://productday.dev.looker.com/dashboards-next/767?Name= {{ value }}"
+    }
   }
 
   dimension: trivial {
