@@ -1,0 +1,74 @@
+# The name of this view in Looker is "Full Time Series"
+view: full_time_series {
+  # The sql_table_name parameter indicates the underlying database table
+  # to be used for all fields in this view.
+  sql_table_name: `thematic-mapper-330917.mexico_health_department_data.full_time_series`
+    ;;
+  # No primary key is defined for this view. In order to join this view in an Explore,
+  # define primary_key: yes on a dimension that has no repeated values.
+
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Clues" in Explore.
+
+  dimension: clues {
+    type: string
+    sql: ${TABLE}.CLUES ;;
+  }
+
+  # Dates and timestamps can be represented in Looker using a dimension group of type: time.
+  # Looker converts dates and timestamps to the specified timeframes within the dimension group.
+
+  dimension_group: fechaegre {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.FECHAEGRE ;;
+  }
+
+  dimension_group: fechaingre {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.FECHAINGRE ;;
+  }
+
+  dimension: horainiate {
+    type: number
+    sql: ${TABLE}.HORAINIATE ;;
+  }
+
+  dimension: horaterate {
+    type: number
+    sql: ${TABLE}.HORATERATE ;;
+  }
+
+  dimension: mininiate {
+    type: number
+    sql: ${TABLE}.MININIATE ;;
+  }
+
+  dimension: minterate {
+    type: number
+    sql: ${TABLE}.MINTERATE ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: []
+  }
+}
